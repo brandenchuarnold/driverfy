@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
 import httplib
 
-from playlist import (
+from logic.playlist import (
     get_playlist,
     add_track,
     move_track,

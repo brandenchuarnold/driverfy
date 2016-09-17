@@ -1,7 +1,15 @@
-from spotipy import Spotipy, util
+from spotipy import Spotify, util
 from flask import current_app as app
 
 DRIVER_PLAYLIST_NAME = 'driverfy'
+
+def make_playlist(user_id):
+    app.sp.user_playlist_create(user=user_id,
+                                name=DRIVER_PLAYLIST_NAME,
+                                public=False)
+    app.sessions[len(sessions)] = user_id
+    return 'Success'
+
 
 def get_playlist(session_id):
     if session_id not in app.sessions:
@@ -21,6 +29,7 @@ def add_track(session_id,
                                     playlist_id=playlist['id'],
                                     tracks=[track_id],
                                     position=None)
+    return 'Success'
 
 
 def move_track(session_id,
@@ -35,7 +44,7 @@ def move_track(session_id,
                                         range_length=1,
                                         insert_before=track_index_to,
                                         snapshot_id=None)
-
+    return 'Success'
 
 def remove_track(session_id,
                  track_index):
@@ -47,4 +56,5 @@ def remove_track(session_id,
                                                                tracks=[{'uri': playlist['tracks'][track_index_from]['id'],
                                                                         'positions': [track_index_from]}],
                                                                snapshot_id=None)
+    return 'Success'
 

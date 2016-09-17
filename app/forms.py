@@ -1,5 +1,5 @@
-from wtforms import Form, StringField, PasswordField, BooleanField, validators
+from wtforms import Form, IntegerField
 
-class LoginForm(Form):
-    email = StringField('Spotify email', [validators.DataRequired()])
-    password = PasswordField('Password', [validators.DataRequired()])
+class SessionForm(Form):
+    driver_id = IntegerField('Create Session', [])
+    session_id = IntegerField('Join a Session', [])
