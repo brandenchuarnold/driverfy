@@ -15,7 +15,7 @@ def get_playlist_by_session_id(session_id):
         playlist_data = get_playlist_by_session_id(session_id)
         if playlist_data:
             status = httplib.OK
-        else
+        else:
             status = httplib.NOT_FOUND
         return jsonify(playlist=playlist_data), status
 

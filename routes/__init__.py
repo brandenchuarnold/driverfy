@@ -3,12 +3,8 @@ from flask import (
     current_app as app,
     jsonify
 )
-
 from routes.playlist import (
     playlist_route
-)
-from routes.user import (
-    user_route
 )
 from routes.session import (
     session_route
@@ -17,5 +13,4 @@ from routes.session import (
 def add_routes(app):
     pass
     app.register_blueprint(playlist_route, url_prefix="/playlist")
-    app.register_blueprint(login_route, url_prefix="/login")
     app.register_blueprint(session_route, url_prefix="/session")
