@@ -5,7 +5,7 @@ import sys
 
 # Library imports
 import spotipy
-import json, requests, time
+import json, requests, time, random, string
 
 # Custom imports
 from app import app
@@ -56,8 +56,7 @@ def start_session():
                             'expiration': session['expiration'],
                             'refreshtoken': session['refreshtoken']}
 
-    return 'AFDLKJSDHFLKJDSHFLJ'
-
+    return render_template('driver_interface.html', key=session['drivekey'])
 
 @app.route('/session/join')
 def join_session():
@@ -68,7 +67,9 @@ def join_session():
             return redirect('/session/join', message='No drive with that ID exists!')
         elif session_key:
             session['drivekey'] = session_key
-            session['accesstoken'] = app.sessions[session_key]['accesstoken']
-        print(str(session_key), file=sys.stderr)
-        return redirect(url_for('songs'))
+            tokens = app.sessions[session['drivekey']]
+            session['refreshtoken'] = tokens['refreshtoken']
+            helpers.renewAccess()
+
+        return render_template('songs.html', form=form)
     return render_template('join_session.html', form=form)
