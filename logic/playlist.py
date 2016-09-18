@@ -3,20 +3,20 @@ from flask import current_app as app
 
 DRIVER_PLAYLIST_NAME = 'driverfy'
 
-def make_playlist(user_id):
+def make_playlist(session_id):
+    user_id = app.sessions[session_id]
     app.sp.user_playlist_create(user=user_id,
                                 name=DRIVER_PLAYLIST_NAME,
                                 public=False)
-    app.sessions[len(sessions)] = user_id
     return 'Success'
 
 
 def get_playlist(session_id):
     if session_id not in app.sessions:
         return None
-    owner_username = app.sessions[session_id]
-    owner_playlists = sp.user_playlists(owner_username)
-    playlist = owner_playlists[DRIVER_PLAYLIST_NAME]
+    user_id = app.sessions[session_id]
+    playlists = sp.user_playlists(user=user_id)
+    playlist = playlists[DRIVER_PLAYLIST_NAME]
     return playlist
 
 
