@@ -11,6 +11,15 @@
 </head>
 
 <body>
+<style type="text/css">
+    a {     
+display: inline-block;     
+position: relative;    
+z-index: 1;     
+padding: 2em;     
+margin: -2em; 
+}
+</style>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
@@ -28,6 +37,12 @@
         }
         function unhover2(element) {
             element.setAttribute('src', '{{ url_for('static', filename='images/join.png')}}');
+        }
+        function hover3(element) {
+            element.setAttribute('src', '{{ url_for('static', filename='images/sologreen.png')}}');
+        }
+        function unhover3(element) {
+            element.setAttribute('src', '{{ url_for('static', filename='images/solo.png')}}');
         }
     </script>
 
