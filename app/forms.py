@@ -1,4 +1,4 @@
-from wtforms import Form, IntegerField, BooleanField, validators
+from wtforms import Form, StringField, validators
 
 class SessionForm(Form):
-    session_id = IntegerField('Session ID:', [validators.DataRequired()])
+    session_id = StringField('Session ID:', [validators.DataRequired()])
