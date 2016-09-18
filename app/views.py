@@ -35,7 +35,7 @@ def songs():
     songs = requests.get('https://api.spotify.com/v1/me/tracks', headers={'Authorization': 'Bearer ' + session['accesstoken']}).json()
 
 
-    return render_template('songs.html', songs=songs['items'], key=session['drivekey'])
+    return render_template('songs.html', songs=songs['items'], key=session['drivekey'], search_result=None)
 
 
 @app.route('/login')
@@ -133,3 +133,26 @@ def join_session():
 
     # By default, render the "join a drive session" page
     return render_template('join_session.html', form=form)
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+
+    # Create form for taking in the drive session ID
+    form = SearchForm(request.form)
+
+    # If posted valid result...
+    if request.method == 'POST' and form.validate():
+
+        # Query to search song for
+        query = form.search_field.data
+        if session_key and not session_key in app.sessions.keys():
+            return redirect('/session/join')
+
+        # The top results
+        results = requests.get('https://api.spotify.com/v1/search?q=' + query.replace(' ', '%20') + '&type=track&limit=1')
+
+        # Redirect to songs page, replacing box with result
+        return redirect(url_for('songs'), item)
+
+    # By default, render the "songs" page
+    return render_template('songs.html', search_result=result['tracks']['items'][0])
