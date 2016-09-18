@@ -5,8 +5,8 @@ import requests, time
 from app import app
 
 
-def renewAccess():
-    if 'expiration' in session.keys() and session['expiration'] > time.time():
+def renewAccess(force=False):
+    if not force and 'expiration' in session.keys() and session['expiration'] > time.time():
         return
     if 'refreshtoken' in session.keys():
         postbody = {
