@@ -54,7 +54,7 @@ def start_session():
                             'expiration': session['expiration'],
                             'refreshtoken': session['refreshtoken']}
 
-    return render_template('start_session')
+    return render_template('driver_interface.html', key=session['drivekey'])
 
 @app.route('/session/join')
 def join_session():
@@ -65,6 +65,10 @@ def join_session():
             return redirect('/session/join', message='No drive with that ID exists!')
         elif session_key:
             session['drivekey'] = session_key
-            session['accesstoken'] = app.sessions[session_key]['accesstoken']
-        return redirect(url_for('songs'))
-    return render_template('join_session', form=form)
+            tokens = app.sessions[session['drivekey']]
+            session['refreshtoken'] = tokens['refreshtoken']
+            helpers.renewAccess()
+
+        return render_template('songs.html', form=form)
+
+    return render_template('join_session.html', form=form)
