@@ -7,7 +7,7 @@
 <h4 style='color: gray;'>Up next:</h4>
 <ul id='song-list'>
     {% for song in songs %}
-        <li>
+        <li key="{{ song['track']['id'] }}">
             <div class='row driverfy-song-draggable'>
                 <div class="card-panel z-depth-1 driverfy-song-card">
                     <div class="row valign-wrapper">
@@ -28,6 +28,14 @@
         </li>
     {% endfor %}
     <script type='text/javascript'>
-        $("#song-list").sortable();
+        $("#song-list").sortable({
+            update: function(event, ui) {
+                console.log(ui);
+                id = ui;
+                x = $.map($("#song-list li"), function(val, i) {
+                    return val.getAttribute('key');
+                });
+            }
+        });
     </script>
 {% endblock %}
