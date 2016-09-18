@@ -1,14 +1,7 @@
 from flask import Flask, session
 from flask_session import Session
-<<<<<<< Updated upstream
-
-app = Flask(__name__)
-=======
-# from routes import add_routes
-
 app = Flask(__name__)
 # add_routes(app)
->>>>>>> Stashed changes
 from app import views
 
 # Flask-Session to store session data for each user on server

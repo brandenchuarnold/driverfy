@@ -1,119 +1,99 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css')}}" media="screen,projection"/>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css')}}" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>Driverfy</title>
-    </head>
 
-<style> 
-img.hover{
-    border: 2px solid #42b983;border-radius: 3px;background-color: #fff;opacity: .2;
-}
-body {
-    background-image: url("{{ url_for('static', filename='images/gradient.jpg')}}");
-    background-size: 100%;
-    background-color: black;
-}
-</style>
-    <body>
+<head>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css')}}" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Driverfy</title>
+</head>
 
-    
-        <!-- slide-out side navigation -->
-        <ul id="slide-out" class="side-nav grey darken-4">
-            <li><div class="userView">
+<body>
+
+
+    <!-- slide-out side navigation -->
+    <!-- <ul id="slide-out" class="side-nav grey darken-4">
+        <li>
+            <div class="userView">
                 <img class="background" src="">
-                    <a href="#!user"><img class="circle" src=""></a>
-                    <a href="#!name"><span class="white-text name">John Doe</span></a>
-                    <a href="#!email"><span class="white-text email">johndoe@gmail.com</span></a>
+                <a href="#!user"><img class="circle" src=""></a>
+                <a href="#!name"><span class="white-text name">John Doe</span></a>
+                <a href="#!email"><span class="white-text email">johndoe@gmail.com</span></a>
             </div>
-           
-           
-            <li class="white-text"><a  class="white-text waves-effect waves-light" href="#!"><i class="material-icons white-text">https</i>Login</a></li>
-            <li><p class="flow-text materialize-spotifygreen-text">&nbsp;Session Members</p></li>
 
-            <!--- session members -->
+
+            <li class="white-text"><a class="white-text waves-effect waves-light" href="#!"><i class="material-icons white-text">https</i>Login</a></li>
+            <li>
+                <p class="flow-text materialize-spotifygreen-text">&nbsp;Session Members</p>
+            </li>
+
             <ul class="collection">
-    <li class="collection-item avatar grey darken-4 white-text">
-      <img src="images/yuna.jpg" alt="" class="circle">
-      <span class="title">Name</span>
-      <p>Driver <br>
-         info
-      </p>
-     
-    </li>
-    <li class="collection-item avatar grey darken-4 white-text">
-      <img src="images/yuna.jpg" alt="" class="circle">
-      <span class="title white-text">Name</span>
-      <p >Passenger 1 <br>
-         info
-      </p>
-     
-    </li>
-   <li class="collection-item avatar grey darken-4 white-text">
-      <img src="images/yuna.jpg" alt="" class="circle">
-      <span class="title">Name</span>
-      <p>Passenger 2 <br>
-         info
-      </p>
-     
-    </li>
-    <li class="collection-item avatar grey darken-4 white-text">
-      <img src="images/yuna.jpg" alt="" class="circle">
-      <span class="title white-text">Name</span>
-      <p>Passenger 3 <br>
-         info
-      </p>
-     
-    </li>
-  </ul>
-            
-            <li><a class="subheader white-text">Copyright Driverfy&copy;</a></li> 
-            
-        </ul>
-        <nav>
-            <div class="nav-wrapper materialize-spotifygreen">
-                <a href="#" class="center brand-logo materialize-spotifygreen">Driverfy</a>
-                <ul id="nav-mobile" class="left hide-on-med-and-down materialize-spotifygreen">
-                    <li><a href="#" data-activates="slide-out" class="button-collapse materialize-spotifygreen" style='display: inherit'><i class="material-icons">menu</i></a></li>
-                </ul>
-            </div>
-        </nav>
-        <script type="text/javascript">
-    function hover(element) {
-    element.setAttribute('src', '{{ url_for('static', filename='images/startgreen.png')}}');
-}
-function unhover(element) {
-    element.setAttribute('src', '{{ url_for('static', filename='images/start.png')}}');
-}
+                <li class="collection-item avatar grey darken-4 white-text">
+                    <img src="images/yuna.jpg" alt="" class="circle">
+                    <span class="title">Name</span>
+                    <p>Driver
+                        <br> info</p>
 
-function hover2(element) {
-    element.setAttribute('src', '{{ url_for('static', filename='images/joingreen.png')}}');
-}
-function unhover2(element) {
-    element.setAttribute('src', '{{ url_for('static', filename='images/join.png')}}');
-}
-</script>
+                </li>
+                <li class="collection-item avatar grey darken-4 white-text">
+                    <img src="images/yuna.jpg" alt="" class="circle">
+                    <span class="title white-text">Name</span>
+                    <p>Passenger 1
+                        <br> info
+                    </p>
 
+                </li>
+                <li class="collection-item avatar grey darken-4 white-text">
+                    <img src="images/yuna.jpg" alt="" class="circle">
+                    <span class="title">Name</span>
+                    <p>Passenger 2
+                        <br> info
+                    </p>
 
+                </li>
+                <li class="collection-item avatar grey darken-4 white-text">
+                    <img src="images/yuna.jpg" alt="" class="circle">
+                    <span class="title white-text">Name</span>
+                    <p>Passenger 3
+                        <br/>info</p>
 
-     <div class="center-align">  
+                </li>
+            </ul>
 
-<a href=""><img  style="top:20%;height:50%;width:auto;left:20%;position:absolute;" src="{{ url_for('static', filename='images/start.png')}}"  onmouseover="hover(this);" onmouseout="unhover(this);"  /></a>
-<img  class="center" style="bottom:25%;left:46%;width:10%;height:60%;position:absolute;" src="{{ url_for('static', filename='images/line.png')}}" />
-<a href=""><img class="right-align" style="top:20%;height:50%;width:auto;position:absolute;right:20%;" src="{{ url_for('static', filename='images/join.png')}}" onmouseover="hover2(this);" onmouseout="unhover2(this);" /></a>
-</div>
+            <li><a class="subheader white-text">Copyright Driverfy&copy;</a></li>
 
+    </ul>
 
-
-        <div class='container'>
-            {% block body %}{% endblock %}
+    <nav>
+        <div class="nav-wrapper materialize-spotifygreen">
+            <a href="#" class="center brand-logo materialize-spotifygreen">Driverfy</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down materialize-spotifygreen">
+                <li><a href="#" data-activates="slide-out" class="button-collapse materialize-spotifygreen" style='display: inherit'><i class="material-icons">menu</i></a></li>
+            </ul>
         </div>
+    </nav> -->
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js')}}"></script>
-        <script type="text/javascript" src="{{ url_for('static', filename='js/base.js')}}"></script>
-    </body>
+    <div class='container'>
+        {% block body %}{% endblock %}
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/base.js')}}"></script>
+    <script type="text/javascript">
+        function hover(element) {
+            element.setAttribute('src', '{{ url_for('static', filename='images/startgreen.png')}}');
+        }
+        function unhover(element) {
+            element.setAttribute('src', '{{ url_for('static', filename='images/start.png')}}');
+        }
+        function hover2(element) {
+            element.setAttribute('src', '{{ url_for('static', filename='images/joingreen.png')}}');
+        }
+        function unhover2(element) {
+            element.setAttribute('src', '{{ url_for('static', filename='images/join.png')}}');
+        }
+    </script>
+</body>
 </html

@@ -22,6 +22,10 @@ def songs():
             'client_id': app.client_id,
             'client_secret': app.client_secret
         }
+        tokens = requests.post(url='https://accounts.spotify.com/api/token', data=postbody).json()
+        print tokens
+        session['accesstoken'] = tokens['access_token']
+        session['expiration'] = time.time() + tokens['expires_in']
     # If we've retrieved an authorization token for the first time, and therefore not yet processed tokens
     elif 'authtoken' in list(session.keys()) and not 'expiration' in list(session.keys()):
         postbody = {
@@ -38,8 +42,9 @@ def songs():
         session['refreshtoken'] = tokens['refresh_token']
 
     # Get content
-    songs = requests.get('https://api.spotify.com/v1/me/tracks', headers={'Authorization': 'Bearer ' + session['accesstoken']}).json()['items']
-    return render_template('songs.html', songs=songs)
+    songs = requests.get('https://api.spotify.com/v1/me/tracks', headers={'Authorization': 'Bearer ' + session['accesstoken']}).json()
+    print songs
+    return render_template('songs.html', songs=songs['items'])
 
 @app.route('/login')
 def login():
