@@ -1,8 +1,15 @@
+# Base imports
 from flask import render_template, session, url_for, redirect, request
-from app import app
-from forms import *
+
+# Library imports
 import spotipy
 import json, requests, time
+
+# Custom imports
+from app import app
+from forms import *
+import helpers
+
 
 # / and /index are aliases of each other, but / takes priority
 @app.route('/')

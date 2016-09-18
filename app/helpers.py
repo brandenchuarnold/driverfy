@@ -1,5 +1,14 @@
+from flask import session
+
+import requests, time
+
+from app import app
+
+
 def renewAccess():
-    if 'refreshtoken' in list(session.keys()):
+    if 'expiration' in session.keys() and session['expiration'] > time.time():
+        return
+    if 'refreshtoken' in session.keys():
         postbody = {
             'grant_type': 'refresh_token',
             'refresh_token': session['refreshtoken'],
@@ -16,9 +25,13 @@ def renewAccess():
         }
     try:
         tokens = requests.post(url='https://accounts.spotify.com/api/token', data=postbody).json()
+
+        print tokens
+
         session['accesstoken'] = tokens['access_token']
         session['expiration'] = time.time() + tokens['expires_in']
-        session['refreshtoken'] = tokens['refresh_token']
+        if 'refresh_token' in tokens.keys():
+            session['refreshtoken'] = tokens['refresh_token']
         return True
     except ValueError:
         return False
