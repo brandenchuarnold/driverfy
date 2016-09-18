@@ -1,5 +1,5 @@
-from wtforms import Form, StringField, PasswordField, BooleanField, validators
+from wtforms import Form, IntegerField, BooleanField, validators
 
 class LoginForm(Form):
-    email = StringField('Spotify email', [validators.DataRequired()])
-    password = PasswordField('Password', [validators.DataRequired()])
+    session_id = IntegerField('Session ID:', [validators.DataRequired()])
+    create_mode = BooleanField('Check to make new Session:', [validators.DataRequired()])

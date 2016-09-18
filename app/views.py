@@ -50,3 +50,16 @@ def login():
 def login_callback():
     session['authtoken'] = request.args.get('code')
     return redirect(url_for('songs'))
+
+@app.route('/session')
+def session():
+    form = SessionForm(request.form)
+    if request.method == 'POST' and form.validate():
+        if form.create_mode.data and not 'auth_token' in session:
+            return redirect(url_for('login'))
+        app.sessions[form.session_id.data] = {'accesstoken': session['accesstoken'],
+                                              'expiration': session['expiration'],
+                                              'refreshtoken': session['expiration']}
+        return redirect(url_for('songs'))
+    return render_template('session', form=form)
+
