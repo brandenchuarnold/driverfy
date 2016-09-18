@@ -1,1 +1,21 @@
-asdf
+{% extends 'layout.html' %}
+{% block body %}
+
+<table class='bordered centered'>
+    <thead>
+        <tr>
+            <th data-field='name'>Song</th>
+            <th data-field='artists'>Artists</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for song in songs %}
+            <tr>
+                <td>{{ song['track']['name'] }}</td>
+                <td>{{ song['track']['artists']|map(attribute='name')|join(', ') }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
