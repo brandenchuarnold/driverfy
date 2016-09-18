@@ -4,62 +4,60 @@ from forms import *
 import spotipy
 import json, requests, time
 
+# / and /index are aliases of each other, but / takes priority
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html')
 
+
 @app.route('/songs')
 def songs():
-    # If this is our first time, login and authorize
+    # If this is the first time, login and authorize
     if not 'authtoken' in list(session.keys()):
         return redirect(url_for('login'))
-    # If we've passed the expiration of the previous access token retrieval
-    elif 'expiration' in list(session.keys()) and time.time() > session['expiration']:
-        postbody = {
-            'grant_type': 'refresh_token',
-            'refresh_token': session['refreshtoken'],
-            'client_id': app.client_id,
-            'client_secret': app.client_secret
-        }
-    # If we've retrieved an authorization token for the first time, and therefore not yet processed tokens
-    elif 'authtoken' in list(session.keys()) and not 'expiration' in list(session.keys()):
-        postbody = {
-            'grant_type': 'authorization_code',
-            'code': session['authtoken'],
-            'redirect_uri': app.redirect_uri,
-            'client_id': app.client_id,
-            'client_secret': app.client_secret
-        }
-        tokens = requests.post(url='https://accounts.spotify.com/api/token', data=postbody).json()
-        print tokens
-        session['accesstoken'] = tokens['access_token']
-        session['expiration'] = time.time() + tokens['expires_in']
-        session['refreshtoken'] = tokens['refresh_token']
+
+    # Renew access
+    helpers.renewAccess()
 
     # Get content
     songs = requests.get('https://api.spotify.com/v1/me/tracks', headers={'Authorization': 'Bearer ' + session['accesstoken']}).json()['items']
     return render_template('songs.html', songs=songs)
+
 
 @app.route('/login')
 def login():
     scope = 'playlist-modify-private user-library-read'
     return redirect('https://accounts.spotify.com/authorize/?client_id=' + app.client_id + '&response_type=code&scope=' + scope + '&redirect_uri=' + app.redirect_uri)
 
+
 @app.route('/login/callback')
 def login_callback():
     session['authtoken'] = request.args.get('code')
     return redirect(url_for('songs'))
 
-@app.route('/session')
-def session():
+
+@app.route('/session/start')
+def start_session():
+    key = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(6))
+
+    session['drivekey'] = key
+    app.sessions[key] = {'accesstoken': session['accesstoken'],
+                            'expiration': session['expiration'],
+                            'refreshtoken': session['refreshtoken']}
+
+    return 'AFDLKJSDHFLKJDSHFLJ'
+
+
+@app.route('/session/join')
+def join_session():
     form = SessionForm(request.form)
     if request.method == 'POST' and form.validate():
-        if form.create_mode.data and not 'auth_token' in session:
-            return redirect(url_for('login'))
-        app.sessions[form.session_id.data] = {'accesstoken': session['accesstoken'],
-                                              'expiration': session['expiration'],
-                                              'refreshtoken': session['expiration']}
+        session_key = form.session_id.data
+        if session_key and not session_key in app.sessions.keys():
+            return redirect('/session/join', message='No drive with that ID exists!')
+        elif session_key:
+            session['drivekey'] = session_key
+            session['accesstoken'] = app.sessions[session_key]['accesstoken']
         return redirect(url_for('songs'))
-    return render_template('session', form=form)
-
+    return render_template('join_session', form=form)
