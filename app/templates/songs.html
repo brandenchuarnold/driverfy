@@ -1,21 +1,24 @@
 {% extends 'layout.html' %}
 {% block body %}
 
-<table class='bordered centered'>
-    <thead>
-        <tr>
-            <th data-field='name'>Song</th>
-            <th data-field='artists'>Artists</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for song in songs %}
-            <tr>
-                <td>{{ song['track']['name'] }}</td>
-                <td>{{ song['track']['artists']|map(attribute='name')|join(', ') }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% for song in songs %}
+    <div class='row'>
+        <div class="card-panel z-depth-1 driverfy-song-card">
+            <div class="row valign-wrapper">
+                <div class='col s2'>
+                    <img src="{{ song['track']['album']['images'][2]['url'] }}" class="responsive-img">
+                </div>
+                <div class='col s10'>
+                    <span class='white-text'>
+                        {{ song['track']['name'] }}
+                    </span>
+                    <span class='grey-text'>
+                        {{ song['track']['artists']|map(attribute='name')|join(' | ') }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 
+{% endfor %}
 {% endblock %}

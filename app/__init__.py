@@ -1,6 +1,5 @@
 from flask import Flask, session
 from flask_session import Session
-
 app = Flask(__name__)
 from app import views
 # Flask-Session to store session data for each user on server

@@ -1,2 +1,5 @@
 *.pyc
 */*.pyc
+bin/dump.rdb
+nohup.out
+valgrind.sup

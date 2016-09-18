@@ -1,4 +1,15 @@
 {% extends 'layout.html' %}
 {% block body %}
-Hello world!
+
+<div class="center-align">
+
+    <a href="/songs">
+        <img style="top:20%;height:50%;width:auto;left:20%;position:absolute;" src="{{ url_for('static', filename='images/start.png')}}" onmouseover="hover(this);" onmouseout="unhover(this);" />
+    </a>
+    <img class="center" style="bottom:25%;left:46%;width:10%;height:60%;position:absolute;" src="{{ url_for('static', filename='images/line.png')}}" />
+    <a href="">
+        <img class="right-align" style="top:20%;height:50%;width:auto;position:absolute;right:20%;" src="{{ url_for('static', filename='images/join.png')}}" onmouseover="hover2(this);" onmouseout="unhover2(this);" />
+    </a>
+</div>
+
 {% endblock %}

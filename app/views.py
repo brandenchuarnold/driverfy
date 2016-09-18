@@ -21,8 +21,9 @@ def songs():
     helpers.renewAccess()
 
     # Get content
-    songs = requests.get('https://api.spotify.com/v1/me/tracks', headers={'Authorization': 'Bearer ' + session['accesstoken']}).json()['items']
-    return render_template('songs.html', songs=songs)
+    songs = requests.get('https://api.spotify.com/v1/me/tracks', headers={'Authorization': 'Bearer ' + session['accesstoken']}).json()
+    print songs
+    return render_template('songs.html', songs=songs['items'])
 
 
 @app.route('/login')
