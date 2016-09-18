@@ -19,7 +19,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/songs')
+@app.route('/songs', methods=['GET', 'POST'])
 def songs():
     # If this is the first time, login and authorize
     if not 'authtoken' in session.keys() and not 'refreshtoken' in session.keys():
@@ -34,8 +34,25 @@ def songs():
     # return str(playlistdata)
     songs = requests.get('https://api.spotify.com/v1/me/tracks', headers={'Authorization': 'Bearer ' + session['accesstoken']}).json()
 
+    # Create form for song search
+    form = SearchForm(request.form)
 
-    return render_template('songs.html', songs=songs['items'], key=session['drivekey'])
+    session_key = session['drivekey']
+    # If posted valid result...
+    if request.method == 'POST' and form.validate():
+        # Query to search song for
+        query = form.search_field.data
+
+        # The top results
+        results = requests.get('https://api.spotify.com/v1/search?q=' + query.replace(' ', '%20') + '&type=track&limit=1',
+                                headers={'Authorization': 'Bearer ' + session['accesstoken']}).json()
+
+        # Redirect to songs page, replacing box with result
+        search_result=results['tracks']['items'][0]
+        return render_template('songs.html', songs=songs['items'], key=session['drivekey'], search_result=search_result, form=form)
+
+    # By default, render the "songs" page
+    return render_template('songs.html', songs=songs['items'], key=session['drivekey'], form=form)
 
 
 @app.route('/login')

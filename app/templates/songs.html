@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% from "_formhelpers.html" import render_field %}
 {% block body %}
 
 <h5 style='text-align: center; color: gray'>Your drive key:</h5>
@@ -38,4 +39,56 @@
             }
         });
     </script>
+
+{% if search_result is defined %}
+<li>
+    <div class='row driverfy-song-draggable'>
+        <div class="card-panel z-depth-1 driverfy-song-card">
+            <div class="row valign-wrapper">
+                <div class='col s2'>
+                    <img src="{{ search_result['album']['images'][2]['url'] }}" class="responsive-img">
+                </div>
+                <div class='col s10'>
+                    <span class='white-text'>
+                        {{ search_result['name'] }}
+                    </span>
+                    <span class='grey-text'>
+                        {{ search_result['artists']|map(attribute='name')|join(' | ') }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+{% endif %}
+    <div class='row'>
+        <div class="col s4 offset-s8">
+            <div class="toc-wrapper">
+                <div class='col s2'></div>
+                <div class='col s8'>
+                    <form method='post' action='/songs'>
+                        <div class='input-field'>
+                            {{ render_field(form.search_field) }}
+                        </div>
+                        <div class='input-field'>
+                            <button class="btn btn-large waves-effect waves-light" type="submit" name="action">Go
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.toc-wrapper').pushpin({
+    top: 0
+  });
+  $('.scrollspy').scrollSpy();
+});
+</script>
+
 {% endblock %}
