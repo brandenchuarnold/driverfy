@@ -3,7 +3,7 @@ from flask import render_template, session, url_for, redirect, request
 
 # Library imports
 import spotipy
-import json, requests, time
+import json, requests, time, random, string
 
 # Custom imports
 from app import app
@@ -54,8 +54,7 @@ def start_session():
                             'expiration': session['expiration'],
                             'refreshtoken': session['refreshtoken']}
 
-    return 'AFDLKJSDHFLKJDSHFLJ'
-
+    return render_template('start_session')
 
 @app.route('/session/join')
 def join_session():
