@@ -1,5 +1,7 @@
 # Base imports
+from __future__ import print_function
 from flask import render_template, session, url_for, redirect, request
+import sys
 
 # Library imports
 import spotipy
@@ -29,7 +31,7 @@ def songs():
 
     # Get content
     songs = requests.get('https://api.spotify.com/v1/me/tracks', headers={'Authorization': 'Bearer ' + session['accesstoken']}).json()
-    print songs
+    print(songs)
     return render_template('songs.html', songs=songs['items'])
 
 
@@ -60,12 +62,13 @@ def start_session():
 @app.route('/session/join')
 def join_session():
     form = SessionForm(request.form)
-    if request.method == 'POST' and form.validate():
+    if request.method == 'POST' and form.validate_on_submit():
         session_key = form.session_id.data
         if session_key and not session_key in app.sessions.keys():
             return redirect('/session/join', message='No drive with that ID exists!')
         elif session_key:
             session['drivekey'] = session_key
             session['accesstoken'] = app.sessions[session_key]['accesstoken']
+        print(str(session_key), file=sys.stderr)
         return redirect(url_for('songs'))
-    return render_template('join_session', form=form)
+    return render_template('join_session.html', form=form)
