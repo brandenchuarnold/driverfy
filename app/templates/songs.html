@@ -2,7 +2,10 @@
 {% block body %}
 
 <h2>Your drive key: {{ key }}</h2>
+
+<ul class="collection" id="sortable">
 {% for song in songs %}
+<li class="collection-item">
     <div class='row'>
         <div class="card-panel z-depth-1 driverfy-song-card">
             <div class="row valign-wrapper">
@@ -20,6 +23,13 @@
             </div>
         </div>
     </div>
-
+</li>
 {% endfor %}
 {% endblock %}
+</ul>
+
+<script type="text/javascript">
+$( "#sortable" ).sortable();
+console.log("asdf");
+$( "#sortable" ).disableSelection();
+</script>
