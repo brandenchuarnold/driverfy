@@ -7,28 +7,27 @@
 <h4 style='color: gray;'>Up next:</h4>
 <ul id='song-list'>
     {% for song in songs %}
-    <li>
-        <div class='row driverfy-song-draggable'>
-            <div class="card-panel z-depth-1 driverfy-song-card">
-                <div class="row valign-wrapper">
-                    <div class='col s2'>
-                        <img src="{{ song['track']['album']['images'][2]['url'] }}" class="responsive-img">
-                    </div>
-                    <div class='col s10'>
-                        <span class='white-text'>
-                            {{ song['track']['name'] }}
-                        </span>
-                        <span class='grey-text'>
-                            {{ song['track']['artists']|map(attribute='name')|join(' | ') }}
-                        </span>
+        <li>
+            <div class='row driverfy-song-draggable'>
+                <div class="card-panel z-depth-1 driverfy-song-card">
+                    <div class="row valign-wrapper">
+                        <div class='col s2'>
+                            <img src="{{ song['track']['album']['images'][2]['url'] }}" class="responsive-img">
+                        </div>
+                        <div class='col s10'>
+                            <span class='white-text'>
+                                {{ song['track']['name'] }}
+                            </span>
+                            <span class='grey-text'>
+                                {{ song['track']['artists']|map(attribute='name')|join(' | ') }}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </li>
+        </li>
     {% endfor %}
-</div>
-<script type='text/javascript'>
-    $("#song-list").sortable();
-</script>
+    <script type='text/javascript'>
+        $("#song-list").sortable();
+    </script>
 {% endblock %}
