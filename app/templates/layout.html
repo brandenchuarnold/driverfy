@@ -5,6 +5,7 @@
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css')}}" media="screen,projection"/>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css')}}" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Driverfy</title>
     </head>
 
 <style> 
@@ -80,7 +81,6 @@ body {
                 </ul>
             </div>
         </nav>
-
         <script type="text/javascript">
     function hover(element) {
     element.setAttribute('src', '{{ url_for('static', filename='images/startgreen.png')}}');
@@ -108,7 +108,9 @@ function unhover2(element) {
 
 
 
-        {% block body %}{% endblock %}
+        <div class='container'>
+            {% block body %}{% endblock %}
+        </div>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js')}}"></script>
