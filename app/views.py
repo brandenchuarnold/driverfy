@@ -1,7 +1,5 @@
 # Base imports
-from __future__ import print_function
 from flask import render_template, session, url_for, redirect, request
-import sys
 
 # Library imports
 import spotipy
