@@ -31,7 +31,8 @@ def songs():
     # Get relevant playlist
 
 
-    return str(playlistdata)
+    # return str(playlistdata)
+    songs = requests.get('https://api.spotify.com/v1/me/tracks', headers={'Authorization': 'Bearer ' + session['accesstoken']}).json()
 
 
     return render_template('songs.html', songs=songs['items'], key=session['drivekey'])
@@ -89,7 +90,7 @@ def start_session():
     if not 'Driverfy Playlist' in playlists:
         headers = {'Authorization': 'Bearer {0}'.format(session['accesstoken']), 'Content-Type': 'application/json'}
         body = {'name': 'Driverfy Playlist', 'public': 'false'}
-        session['plid'] = requests.post('https://api.spotify.com/v1/users/{0}/playlists'.format(userdata['id']), headers=headers, body=body)
+        session['plid'] = requests.post('https://api.spotify.com/v1/users/{0}/playlists'.format(userdata['id']), headers=headers, data=body)
         app.sessions[key]['plid'] = session['plid']
 
     # Otherwise, go back through playlist data, find the relevant ID and store it + clear the playlist
