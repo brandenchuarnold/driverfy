@@ -20,3 +20,6 @@ body {
 .driverfy-song-card > .row.valign-wrapper {
     margin-bottom: 0px
 }
+.driverfy-song-draggable {
+    margin-bottom: 10px;
+}

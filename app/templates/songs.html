@@ -8,7 +8,7 @@
 <h4 style='color: gray;'>Up next:</h4>
 <ul id='song-list'>
     {% for song in songs %}
-    <li>
+    <li id="{{ song['track']['id'] }}">
         <div class='row driverfy-song-draggable'>
             <div class="card-panel z-depth-1 driverfy-song-card">
                 <div class="row valign-wrapper">
@@ -29,7 +29,7 @@
     </li>
     {% endfor %}
     {% if search_result is defined %}
-    <li>
+    <li id="{{ search_result['id']}}">
         <div class='row driverfy-song-draggable'>
             <div class="card-panel z-depth-1 driverfy-song-card">
                 <div class="row valign-wrapper">
@@ -48,12 +48,9 @@
             </div>
         </div>
     </li>
-{% endif %}
+    {% endif %}
 </ul>
 
-<script type='text/javascript'>
-    $("#song-list").sortable();
-</script>
 
 <div class='row'>
     <div class="col s4 offset-s8">
@@ -75,6 +72,17 @@
         </div>
     </div>
 </div>
+<script type='text/javascript'>
+    $("#song-list").sortable({
+        update: function(event, ui) {
+            console.log(ui);
+            id = ui;
+            x = $.map($("#song-list li"), function(val, i) {
+                return val.getAttribute('key');
+            });
+        }
+    });
+</script>
 
 <script type="text/javascript">
 $(document).ready(function() {
